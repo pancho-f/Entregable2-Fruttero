@@ -1,0 +1,87 @@
+
+/* AGREGAR ESTILOS BASE / CSS RESET */
+
+*{
+    margin: 0px;
+    border: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+    color: yellow;
+    font-family: "Lucida Console", "Courier New", monospace;
+    font-weight: bold;
+    text-decoration: none;
+    list-style-type: none;
+}
+
+body, #navbar, #ordenActual, #ordenes{
+    border: 2px solid white;
+    border-radius: 1px;
+}
+body{
+    background-color: #0a0a0a;
+    margin: 4px;
+    padding: 2px;
+}
+#navbar{
+    background-color: #0a0a0a;
+    height: 7vh;
+    padding: 3px 5px;
+    display: flex;
+}
+#navbar a{
+    border: 2px solid yellow;
+    border-radius: 1px;
+    margin: 0px 2px;
+    padding: 5px 15px;
+    display: flex;
+    align-items: center;
+    font-size: 1.5em;
+}
+#interfaz{
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    padding: 8px 4px 2px;
+    /* width: 97vw; */
+    height: 90vh;
+}
+/* #interfaz div{
+    max-height: 50vh;
+} */
+#catalogo{
+    background-color: #0a0a0a;
+    grid-row: 1/3;
+}
+#catalogo nav{
+    display: flex;
+    justify-content: space-between;
+}
+#catalogo nav button{
+    border: 2px solid yellow;
+    border-radius: 1px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #0a0a0a;
+    padding: 5px;
+    width: 100%;
+    margin: 0px 2px;
+}
+#catalogo ul{
+    border: 2px solid white;
+    margin: 3px;
+    display: flex;
+    flex-direction: column;                             /* ARREGLAR LISTA PARA MOSTRAR CORRECTAMENTE -> ARREGLAR OTRAS 2 PANTALLAS -> RESET CSS */
+}
+#catalogo li{
+    height: 100%;
+}
+#ordenActual{
+    background-color: #0a0a0a;
+    padding: 10px;
+    margin-left: 5px;
+}
+#ordenes{
+    background-color: #0a0a0a;
+    padding: 10px;
+    margin-left: 5px;
+}
