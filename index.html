@@ -24,17 +24,26 @@
                 <button>Deco</button>
                 <button>Favoritos</button>
             </nav>
-            <ul id="listaCatalogo">
-                <li><p>test</p></li>
-                <li><p>test</p></li>
-                <li><p>test</p></li>
+            <ul id="listaCatalogo">                 <!-- no listar mas de 15 items -->
+                <li><span class="productoSpan"><img src="/Votv_Cacti.webp" class="imagenProducto" alt="imagen de + productoNombre"><p>ProductoNombre</p></span><span class="productoSpan"><p class="precio">100</p><img class="botonCheck" src="/check.png" alt="boton de confirmacion"></span></li>
+                <li><span class="productoSpan"><img src="/Votv_Cacti.webp" class="imagenProducto" alt="imagen de + productoNombre"><p>ProductoNombre</p></span><span class="productoSpan"><p class="precio">100</p><img class="botonCheck" src="/check.png" alt="boton de confirmacion"></span></li>
+                <li><span class="productoSpan"><img src="/Votv_Cacti.webp" class="imagenProducto" alt="imagen de + productoNombre"><p>ProductoNombre</p></span><span class="productoSpan"><p class="precio">100</p><img class="botonCheck" src="/check.png" alt="boton de confirmacion"></span></li>
             </ul>
         </div>
         <div id="ordenActual">
-            <h1>Nombre Apellido</h1>
+            <div>
+                <span id="carritoH1"><h1>Carrito:</h1><h1 class="precio">0/6</h1></span>
+                <ul id="listaCarrito">
+                    <li><span class="productoSpan"><img src="/Votv_Cacti.webp" class="imagenProducto" alt="imagen de + productoNombre"><p>ProductoNombre</p></span><span class="productoSpan"><p class="precio">100</p><img class="botonEliminar" src="" alt="eliminar producto"></span></li>
+                </ul>
+            </div>
+            <div><p id="precioTotal">1000</p><button>COMPRAR</button></div>
         </div>
         <div id="ordenes">
-            <h1>Nombre Apellido</h1>
+            <h1>Órdenes actuales:</h1>
+            <ul id="listaOrdenes">                                  <!-- lista con numero/preview, click para mostrar que tiene -->
+                <li><p>Orden Nº1</p><p class="precio">[5 Items]</p></li>
+            </ul>
         </div>
     </div>
 </body>

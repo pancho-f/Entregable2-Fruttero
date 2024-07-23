@@ -13,6 +13,12 @@
     list-style-type: none;
 }
 
+p, h1{
+    display: flex;
+    align-items: center;
+    padding: 5px;
+}
+
 body, #navbar, #ordenActual, #ordenes{
     border: 2px solid white;
     border-radius: 1px;
@@ -40,6 +46,7 @@ body{
 #interfaz{
     display: grid;
     grid-template-columns: 1.1fr 1fr;
+    grid-template-rows: 1fr 1fr;
     padding: 8px 4px 2px;
     /* width: 97vw; */
     height: 90vh;
@@ -55,7 +62,7 @@ body{
     display: flex;
     justify-content: space-between;
 }
-#catalogo nav button{
+button{
     border: 2px solid yellow;
     border-radius: 1px;
     display: flex;
@@ -66,22 +73,66 @@ body{
     width: 100%;
     margin: 0px 2px;
 }
-#catalogo ul{
+#listaCatalogo{
     border: 2px solid white;
     margin: 3px;
     display: flex;
-    flex-direction: column;                             /* ARREGLAR LISTA PARA MOSTRAR CORRECTAMENTE -> ARREGLAR OTRAS 2 PANTALLAS -> RESET CSS */
+    flex-direction: column;
 }
-#catalogo li{
-    height: 100%;
+#listaCatalogo li, #listaCarrito li, #listaOrdenes li{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid grey;
+}
+.imagenProducto{
+    width: 2em;
+    height: 2em;
+    border-right: 1px solid grey;
+}
+.productoSpan{
+    display: flex;
+}
+.precio, #precioTotal{
+    color: cyan;
+}
+.botonCheck{
+    width: 1.8em;
+    height: 1.8em;
+    border: 1px solid green;
+    border-radius: 5px;
+    margin-right: 2px;
 }
 #ordenActual{
     background-color: #0a0a0a;
-    padding: 10px;
     margin-left: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+#carritoH1{
+    display: flex;
+    justify-content: space-between;
+    font-size: 90%;
+}
+#listaCarrito{
+    border-top: 2px solid white;
+    display: flex;
+    flex-direction: column;
+}
+#ordenActual button{
+    width: initial;
+    font-size: 1.5em;
+}
+#ordenActual div:last-child{
+    display: flex;
+    justify-content: flex-end;
+    border-top: 2px solid white;
 }
 #ordenes{
     background-color: #0a0a0a;
-    padding: 10px;
     margin-left: 5px;
+}
+#ordenes h1{
+    border-bottom: 2px solid white;
 }
