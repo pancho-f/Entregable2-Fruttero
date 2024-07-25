@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- JS -->
-    <!-- <script defer src="script.js"></script> -->
+    <script defer src="script.js"></script>
     <title>Semana 4</title>
     <link rel="stylesheet" type="text/css" href="styles.css"/>
 </head>
@@ -17,12 +17,12 @@
     <div id="interfaz">
         <div id="catalogo">
             <nav>
+                <button>Todos</button>
                 <button>Ropa</button>
                 <button>Comida</button>
                 <button>Limpieza</button>
                 <button>Electro</button>
                 <button>Deco</button>
-                <button>Favoritos</button>
             </nav>
             <ul id="listaCatalogo">                 <!-- no listar mas de 15 items -->
                 <li><span class="productoSpan"><img src="/Votv_Cacti.webp" class="imagenProducto" alt="imagen de + productoNombre"><p>ProductoNombre</p></span><span class="productoSpan"><p class="precio">100</p><img class="botonCheck" src="/check.png" alt="boton de confirmacion"></span></li>
@@ -32,12 +32,12 @@
         </div>
         <div id="ordenActual">
             <div>
-                <span id="carritoH1"><h1>Carrito:</h1><h1 class="precio">0/6</h1></span>
+                <span id="carritoH1"><h1>Carrito:</h1><h1 class="precio"><span class="precio" id="carritoItems">0</span>/6</h1></span>
                 <ul id="listaCarrito">
-                    <li><span class="productoSpan"><img src="/Votv_Cacti.webp" class="imagenProducto" alt="imagen de + productoNombre"><p>ProductoNombre</p></span><span class="productoSpan"><p class="precio">100</p><img class="botonEliminar" src="" alt="eliminar producto"></span></li>
+                    <li><span class="productoSpan"><img src="/Votv_Cacti.webp" class="imagenProducto" alt="imagen de + productoNombre"><p>ProductoNombre</p></span><span class="productoSpan"><p class="precio">100</p><img class="botonEliminar" src="/cross.png" alt="eliminar producto"></span></li>
                 </ul>
             </div>
-            <div><p id="precioTotal">1000</p><button>COMPRAR</button></div>
+            <div><p id="precioTotal">0</p><button>COMPRAR</button></div>
         </div>
         <div id="ordenes">
             <h1>Órdenes actuales:</h1>
