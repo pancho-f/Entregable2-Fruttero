@@ -1,6 +1,3 @@
-
-/* AGREGAR ESTILOS BASE / CSS RESET */
-
 *{
     margin: 0px;
     border: 0px;
@@ -48,12 +45,8 @@ body{
     grid-template-columns: 1.1fr 1fr;
     grid-template-rows: 1fr 1fr;
     padding: 8px 4px 2px;
-    /* width: 97vw; */
     height: 90vh;
 }
-/* #interfaz div{
-    max-height: 50vh;
-} */
 #catalogo{
     background-color: #0a0a0a;
     grid-row: 1/3;

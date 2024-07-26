@@ -1,48 +1,111 @@
-//FALTA: Hacer que botones hagan funciones -- declarar todos los productos -- botones dinamicos con mouse -- limitar items en el carrito
-
-// se declara el array para la orden y los arrays para los productos disponibles
+// se declaran arrays
 let ordenes = []
 let itemsCarrito = []
-const productosComida = ["Pizza", "Hamburguesa", "Barra de Chocolate"]
-const productosIndumentaria = ["Gorra", "Lentes de sol", "Camisa"]
-const productosElectro = ["Microondas", "Televisor", "Dron"]
-const productosLimpieza = ["Papel Higiénico", "Detergente", "Jabón"]
-const productosDeco = ["Cactus", "Silla", "Mesa"]
-
 let carritoItems = 0;
 let carritoItemsSesion = 0;
 let precioTotal = 0;
 let ordenCount = 0;
 const productos = [{
-    nombre: 'Remera',
-    precio: 100,
-    categoria: 'Ropa',
-    imagen: '#',
-    id:0,
-}, {
     nombre: 'Pizza',
     precio: 40,
     categoria: 'Comida',
-    imagen: '/assets/votv-pizza.png',
+    imagen: 'assets/votv-pizza.png',
+    id:0,
+}, {
+    nombre: 'Hamburguesa',
+    precio: 20,
+    categoria: 'Comida',
+    imagen: 'assets/votv-burger.png',
     id:1,
 }, {
-    nombre: 'TV',
-    precio: 1000,
-    categoria: 'Electro',
-    imagen: '#',
+    nombre: 'Barra de Chocolate',
+    precio: 25,
+    categoria: 'Comida',
+    imagen: 'assets/votv-choc.png',
     id:2,
+}, {
+    nombre: 'Cafetera',
+    precio: 200,
+    categoria: 'Electro',
+    imagen: 'assets/votv-coffeemachine.png',
+    id:3,
+}, {
+    nombre: 'Dron',
+    precio: 300,
+    categoria: 'Electro',
+    imagen: 'assets/votv-drone.png',
+    id:4,
+}, {
+    nombre: 'Cámara',
+    precio: 100,
+    categoria: 'Electro',
+    imagen: 'assets/votv-camera.png',
+    id:5,
+}, {
+    nombre: 'Rollo de Papel Higiénico',
+    precio: 5,
+    categoria: 'Limpieza',
+    imagen: 'assets/votv-TP.png',
+    id:6,
+}, {
+    nombre: 'Esponja',
+    precio: 3,
+    categoria: 'Limpieza',
+    imagen: 'assets/votv-sponge.png',
+    id:7,
+}, {
+    nombre: 'Jabón',
+    precio: 5,
+    categoria: 'Limpieza',
+    imagen: 'assets/votv-soap.png',
+    id:8,
+}, {
+    nombre: 'Florero',
+    precio: 50,
+    categoria: 'Deco',
+    imagen: 'assets/votv-vase.png',
+    id:9,
+}, {
+    nombre: 'Cactus',
+    precio: 35,
+    categoria: 'Deco',
+    imagen: 'assets/Votv_Cacti.webp',
+    id:10,
+}, {
+    nombre: 'Aro de basquet',
+    precio: 60,
+    categoria: 'Deco',
+    imagen: 'assets/votv-hoop.png',
+    id:11,
+}, {
+    nombre: 'Gorra',
+    precio: 60,
+    categoria: 'Ropa',
+    imagen: '#',
+    id:12,
+}, {
+    nombre: 'Lentes de sol',
+    precio: 30,
+    categoria: 'Ropa',
+    imagen: '#',
+    id:13,
+}, {
+    nombre: 'Bufanda',
+    precio: 60,
+    categoria: 'Ropa',
+    imagen: '#',
+    id:14,
 }]
 
+//  funciones para el catálogo:
 let botonAgregar = () => {
     botonCheck = document.querySelectorAll('.botonCheck');
     botonCheck.forEach(boton => {
         boton.onclick = (e) => {
             const productoId = e.currentTarget.id;
             agregarCarrito(productoId);
-            /* const productoElegido = productos.find(producto => producto.id == productoId) */ // USAR ESTO PARA SIMPLIFICAR LA FUNCION agregarCarrito
         }});
 }
-//  funciones para el catálogo:
 //  es usado por otras funciones para alterar la lista
 let listarProducto = (numeroProducto) => {
     let contenedor = document.createElement('li');
@@ -103,6 +166,7 @@ const actualizarItemsCarrito = () => {document.getElementById('carritoItems').in
 //  es llamado por otras funciones para actualizar el precio total
 const actualizarPrecioTotal = () => {document.getElementById('precioTotal').innerHTML = precioTotal;}
 
+//  funciones para la lista de órdenes;
 class Orden {
     constructor(producto1, producto2, producto3, producto4, producto5, producto6) {
         this.producto1 = producto1
@@ -113,25 +177,40 @@ class Orden {
         this.producto6 = producto6
     }
 }
-let enviarCompra = (producto1, producto2, producto3, producto4, producto5, producto6) => {
-    const orden = new Orden(producto1, producto2, producto3, producto4, producto5, producto6)
+let enviarCompra = (lista) => {
+    const orden = new Orden(lista[0], lista[1], lista[2], lista[3], lista[4], lista[5])
     ordenes.push(orden)
     let cuentaItems = document.getElementsByClassName("nombreProductoCarrito").length;
     ordenCount +=1;
     let item = document.createElement('li');
-    item.innerHTML = '<p>Orden Nº'+ ordenCount +'</p><p class="precio">['+ cuentaItems +' Items]</p>'       //agregar onclick alert que muestre los items del array O hover que cambie el texto
+    item.innerHTML = '<p>Orden Nº'+ ordenCount +'</p><p class="precio">['+ cuentaItems +' Items]</p>'
     document.querySelector('#listaOrdenes').append(item)
     document.querySelector('#listaCarrito').innerHTML = '';
     carritoItems = 0; actualizarItemsCarrito();
     precioTotal = 0; actualizarPrecioTotal();
-    localStorage.setItem
+    localStorage.setItem('orden'+ordenCount, JSON.stringify(orden));
 }
+let recuperoStorage = () => {
+    let num = 0
+    while (num < 20) {
+        num++;
+        let ordenStorage = localStorage.getItem('orden'+num);
+        if (ordenStorage != null) {
+            ordenStorage = JSON.parse(ordenStorage);
+            ordenes.push(ordenStorage);
+            ordenCount += 1;
+            let item = document.createElement('li');
+            item.innerHTML = '<p>Orden Nº'+ ordenCount +'</p><p class="precio">[ENVIADA]</p>'
+            document.querySelector('#listaOrdenes').append(item)
+        }}
+}; recuperoStorage();
 document.getElementById('botonComprar').onclick = () => {
     if (carritoItems > 0 && carritoItems < 7){
         let lista = [];
         carritoLista = document.querySelectorAll('.nombreProductoCarrito');
         carritoLista.forEach(item => {
-            lista.push(item.innerText)
+            let idItem = productos.find(prod => prod.nombre == item.innerText).id;
+            lista.push(idItem)
         });
         enviarCompra(lista);
     }
