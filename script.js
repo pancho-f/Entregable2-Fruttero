@@ -5,6 +5,7 @@ let carritoItems = 0;
 let carritoItemsSesion = 0;
 let precioTotal = 0;
 let ordenCount = 0;
+
 const productos = [{
     nombre: 'Pizza',
     precio: 40,
@@ -97,7 +98,11 @@ const productos = [{
     id:14,
 }]
 
-//  funciones para el catálogo:
+//  es llamado por otras funciones para actualizar la cantidad de items en el carrito
+const actualizarItemsCarrito = () => {document.getElementById('carritoItems').innerHTML = carritoItems;}
+//  es llamado por otras funciones para actualizar el precio total
+const actualizarPrecioTotal = () => {document.getElementById('precioTotal').innerHTML = precioTotal;}
+
 let botonAgregar = () => {
     botonCheck = document.querySelectorAll('.botonCheck');
     botonCheck.forEach(boton => {
@@ -105,31 +110,39 @@ let botonAgregar = () => {
             const productoId = e.currentTarget.id;
             agregarCarrito(productoId);
         }});
-}
-//  es usado por otras funciones para alterar la lista
-let listarProducto = (numeroProducto) => {
-    let contenedor = document.createElement('li');
-    contenedor.innerHTML = '<span class="productoSpan"><img src="'+ productos[numeroProducto].imagen +'" class="imagenProducto" alt="imagen de '+ productos[numeroProducto].nombre +'"><p>'+ productos[numeroProducto].nombre +'</p></span><span class="productoSpan"><p class="precio">'+ productos[numeroProducto].precio +'</p><img id='+ productos[numeroProducto].id +' class="botonCheck" src="assets/check.png" alt="boton de confirmacion"></span>';
-    document.querySelector('#listaCatalogo').append(contenedor)
-}
-//  genera la lista completa al inicio y al hacer clic en 'todos'
-const generarLista = () => {document.querySelector('#listaCatalogo').innerHTML = ''; productos.forEach(producto => {listarProducto(producto.id)}); botonAgregar();}
-generarLista();
-//  altera la lista a solo la categoria elegida
-document.getElementById('filtroReset').onclick = () => generarLista();
-let listarCategoria = (categoriaElegida) => {
-    document.querySelector('#listaCatalogo').innerHTML = '';
-    productos.forEach(producto => {if (categoriaElegida === producto.categoria){listarProducto(producto.id)}});
-    botonAgregar();
 };
+
+//  funciones para el catálogo:
+//  genera la lista completa al inicio y al hacer clic en 'todos'
+let listarProductos = (productsArray) => {
+    document.querySelector('#listaCatalogo').innerHTML = '';
+    productsArray.forEach(producto => {
+        const contenedor = document.createElement('li');
+        contenedor.innerHTML = `<span class="productoSpan">
+                                    <img src="${producto.imagen}" class="imagenProducto" alt="imagen de ${producto.nombre}">
+                                    <p>${producto.nombre}</p>
+                                </span>
+                                <span class="productoSpan">
+                                    <p class="precio">${producto.precio}</p>
+                                    <img id=${producto.id} class="botonCheck" src="assets/check.png" alt="boton de confirmacion">
+                                </span>`;
+        document.querySelector('#listaCatalogo').append(contenedor);
+        botonAgregar();
+    });
+}; listarProductos(productos);
+
+//  altera la lista a solo la categoria elegida
+document.getElementById('filtroReset').onclick = () => listarProductos(productos);
 let filtrar = () =>{
     let botones = document.querySelectorAll('.filtroCategoria')
     botones.forEach(boton =>{
         boton.onclick = (e) => {
             let categoriaElegida = e.currentTarget.innerText;
-            listarCategoria(categoriaElegida);
-}})};
-filtrar();
+            document.querySelector('#listaCatalogo').innerHTML = '';
+            let categoriaProductos = productos.filter(cat => cat.categoria === categoriaElegida) ;
+            listarProductos(categoriaProductos);
+}})}; filtrar();
+
 
 //  funciones para el carrito:
 //  altera la lista del carrito agregando el producto elegido
@@ -161,10 +174,7 @@ let botonRestar = () => {
             eliminarCarrito(productoId);
         }});
 };
-//  es llamado por otras funciones para actualizar la cantidad de items en el carrito
-const actualizarItemsCarrito = () => {document.getElementById('carritoItems').innerHTML = carritoItems;}
-//  es llamado por otras funciones para actualizar el precio total
-const actualizarPrecioTotal = () => {document.getElementById('precioTotal').innerHTML = precioTotal;}
+
 
 //  funciones para la lista de órdenes;
 class Orden {
