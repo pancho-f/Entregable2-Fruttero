@@ -139,7 +139,7 @@ let agregarCarrito = (id) => {
     itemsCarrito[carritoItems]["idSesion"] = carritoItemsSesion + 1;
     carritoItems +=1; actualizarItemsCarrito();
     carritoItemsSesion +=1; contenedor.id = "carritoItem"+carritoItemsSesion;
-    contenedor.innerHTML = '<span class="productoSpan"><img src="'+ productos[id].imagen +'" class="imagenProducto" alt="imagen de '+ productos[id].nombre +'"><p class="nombreProductoCarrito">'+ productos[id].nombre +'</p></span><span class="productoSpan"><p class="precio">'+ productos[id].precio +'</p><img id=botonItem'+ productos[id].idSesion +' class="botonEliminar" src="assets/cross.png" alt="eliminar producto"></span>';
+    contenedor.innerHTML = '<span class="productoSpan"><img src="'+ productos[id].imagen +'" class="imagenProducto" alt="imagen de '+ productos[id].nombre +'"><p class="nombreProductoCarrito">'+ productos[id].nombre +'</p></span><span class="productoSpan"><p class="precio">'+ productos[id].precio +'</p><img id=botonItem'+ carritoItemsSesion +' class="botonEliminar" src="assets/cross.png" alt="eliminar producto"></span>';
     document.querySelector('#listaCarrito').append(contenedor)
     precioTotal += productos[id].precio; actualizarPrecioTotal();
     botonRestar();
