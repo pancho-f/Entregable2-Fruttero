@@ -17,32 +17,27 @@
     <div id="interfaz">
         <div id="catalogo">
             <nav>
-                <button>Todos</button>
-                <button>Ropa</button>
-                <button>Comida</button>
-                <button>Limpieza</button>
-                <button>Electro</button>
-                <button>Deco</button>
+                <button id="filtroReset">Todos</button>
+                <button class="filtroCategoria">Ropa</button>
+                <button class="filtroCategoria">Comida</button>
+                <button class="filtroCategoria">Limpieza</button>
+                <button class="filtroCategoria">Electro</button>
+                <button class="filtroCategoria">Deco</button>
             </nav>
             <ul id="listaCatalogo">                 <!-- no listar mas de 15 items -->
-                <li><span class="productoSpan"><img src="/Votv_Cacti.webp" class="imagenProducto" alt="imagen de + productoNombre"><p>ProductoNombre</p></span><span class="productoSpan"><p class="precio">100</p><img class="botonCheck" src="/check.png" alt="boton de confirmacion"></span></li>
-                <li><span class="productoSpan"><img src="/Votv_Cacti.webp" class="imagenProducto" alt="imagen de + productoNombre"><p>ProductoNombre</p></span><span class="productoSpan"><p class="precio">100</p><img class="botonCheck" src="/check.png" alt="boton de confirmacion"></span></li>
-                <li><span class="productoSpan"><img src="/Votv_Cacti.webp" class="imagenProducto" alt="imagen de + productoNombre"><p>ProductoNombre</p></span><span class="productoSpan"><p class="precio">100</p><img class="botonCheck" src="/check.png" alt="boton de confirmacion"></span></li>
             </ul>
         </div>
         <div id="ordenActual">
             <div>
                 <span id="carritoH1"><h1>Carrito:</h1><h1 class="precio"><span class="precio" id="carritoItems">0</span>/6</h1></span>
                 <ul id="listaCarrito">
-                    <li><span class="productoSpan"><img src="/Votv_Cacti.webp" class="imagenProducto" alt="imagen de + productoNombre"><p>ProductoNombre</p></span><span class="productoSpan"><p class="precio">100</p><img class="botonEliminar" src="/cross.png" alt="eliminar producto"></span></li>
                 </ul>
             </div>
-            <div><p id="precioTotal">0</p><button>COMPRAR</button></div>
+            <div><p id="precioTotal">0</p><button id="botonComprar">COMPRAR</button></div>
         </div>
         <div id="ordenes">
             <h1>Órdenes actuales:</h1>
             <ul id="listaOrdenes">                                  <!-- lista con numero/preview, click para mostrar que tiene -->
-                <li><p>Orden Nº1</p><p class="precio">[5 Items]</p></li>
             </ul>
         </div>
     </div>
