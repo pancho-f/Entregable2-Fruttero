@@ -103,16 +103,31 @@ const actualizarItemsCarrito = () => {document.getElementById('carritoItems').in
 //  es llamado por otras funciones para actualizar el precio total
 const actualizarPrecioTotal = () => {document.getElementById('precioTotal').innerHTML = precioTotal;}
 
+//  altera la lista del carrito agregando el producto elegido
 let botonAgregar = () => {
     botonCheck = document.querySelectorAll('.botonCheck');
     botonCheck.forEach(boton => {
         boton.onclick = (e) => {
             const productoId = e.currentTarget.id;
-            agregarCarrito(productoId);
+            let contenedor = document.createElement('li');
+            itemsCarrito.push(productos[productoId]);
+            itemsCarrito[carritoItems]["idSesion"] = carritoItemsSesion + 1;
+            carritoItems +=1; actualizarItemsCarrito();
+            carritoItemsSesion +=1; contenedor.id = "carritoItem"+carritoItemsSesion;
+            contenedor.innerHTML = `<span class="productoSpan">
+                                        <img src="${productos[productoId].imagen}" class="imagenProducto" alt="imagen de ${productos[productoId].nombre}">
+                                        <p class="nombreProductoCarrito">${productos[productoId].nombre}</p>
+                                    </span>
+                                    <span class="productoSpan">
+                                        <p class="precio">${productos[productoId].precio}</p>
+                                        <img id=botonItem${carritoItemsSesion} class="botonEliminar" src="assets/cross.png" alt="eliminar producto">
+                                    </span>`
+            document.querySelector('#listaCarrito').append(contenedor)
+            precioTotal += productos[productoId].precio; actualizarPrecioTotal();
+            botonRestar();
         }});
 };
 
-//  funciones para el catálogo:
 //  genera la lista completa al inicio y al hacer clic en 'todos'
 let listarProductos = (productsArray) => {
     document.querySelector('#listaCatalogo').innerHTML = '';
@@ -127,8 +142,7 @@ let listarProductos = (productsArray) => {
                                     <img id=${producto.id} class="botonCheck" src="assets/check.png" alt="boton de confirmacion">
                                 </span>`;
         document.querySelector('#listaCatalogo').append(contenedor);
-        botonAgregar();
-    });
+    });botonAgregar();
 }; listarProductos(productos);
 
 //  altera la lista a solo la categoria elegida
@@ -141,37 +155,21 @@ let filtrar = () =>{
             document.querySelector('#listaCatalogo').innerHTML = '';
             let categoriaProductos = productos.filter(cat => cat.categoria === categoriaElegida) ;
             listarProductos(categoriaProductos);
+            botonAgregar();
 }})}; filtrar();
 
-
-//  funciones para el carrito:
-//  altera la lista del carrito agregando el producto elegido
-let agregarCarrito = (id) => {
-    let contenedor = document.createElement('li');
-    itemsCarrito.push(productos[id]);
-    itemsCarrito[carritoItems]["idSesion"] = carritoItemsSesion + 1;
-    carritoItems +=1; actualizarItemsCarrito();
-    carritoItemsSesion +=1; contenedor.id = "carritoItem"+carritoItemsSesion;
-    contenedor.innerHTML = '<span class="productoSpan"><img src="'+ productos[id].imagen +'" class="imagenProducto" alt="imagen de '+ productos[id].nombre +'"><p class="nombreProductoCarrito">'+ productos[id].nombre +'</p></span><span class="productoSpan"><p class="precio">'+ productos[id].precio +'</p><img id=botonItem'+ carritoItemsSesion +' class="botonEliminar" src="assets/cross.png" alt="eliminar producto"></span>';
-    document.querySelector('#listaCarrito').append(contenedor)
-    precioTotal += productos[id].precio; actualizarPrecioTotal();
-    botonRestar();
-}
 //  elimina el producto deseado y resta el precio del total
-let eliminarCarrito = (id) => {
-    carritoItems -=1; actualizarItemsCarrito();
-    let precio = document.querySelector('#'+ id + ' .precio').innerText;
-    precioTotal -= precio; actualizarPrecioTotal();
-    document.getElementById(id).remove();
-    let idProducto = itemsCarrito.indexOf(itemsCarrito.find(num => num.idSesion === parseInt(id.replace("carritoItem", "")))) ;
-    itemsCarrito.splice(idProducto, 1);
-}
 let botonRestar = () => {
     botonCross = document.querySelectorAll('.botonEliminar');
     botonCross.forEach(boton => {
         boton.onclick = (e) => {
-            const productoId = e.currentTarget.id.replace("boton", "carrito");
-            eliminarCarrito(productoId);
+            const productoId = e.currentTarget.id.replace("boton", "carrito");  //me devuelve 'carritoItemX'
+            carritoItems -=1; actualizarItemsCarrito();
+            let precio = document.querySelector(`#${productoId} .precio`).innerText;
+            precioTotal -= precio; actualizarPrecioTotal();
+            document.getElementById(productoId).remove();
+            let idProducto = itemsCarrito.indexOf(itemsCarrito.find(num => num.idSesion === parseInt(productoId.replace("carritoItem", "")))) ;
+            itemsCarrito.splice(idProducto, 1);
         }});
 };
 
