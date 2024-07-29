@@ -110,8 +110,9 @@ let botonAgregar = () => {
         boton.onclick = (e) => {
             const productoId = e.currentTarget.id;
             let contenedor = document.createElement('li');
-            itemsCarrito.push(productos[productoId]);
-            itemsCarrito[carritoItems]["idSesion"] = carritoItemsSesion + 1;
+            let productoAComprar = {...productos[productoId]} ;
+            productoAComprar["idSesion"] = carritoItemsSesion + 1;
+            itemsCarrito.push(productoAComprar);
             carritoItems +=1; actualizarItemsCarrito();
             carritoItemsSesion +=1; contenedor.id = "carritoItem"+carritoItemsSesion;
             contenedor.innerHTML = `<span class="productoSpan">
@@ -197,6 +198,7 @@ let enviarCompra = (lista) => {
     carritoItems = 0; actualizarItemsCarrito();
     precioTotal = 0; actualizarPrecioTotal();
     localStorage.setItem('orden'+ordenCount, JSON.stringify(orden));
+    itemsCarrito = [];
 }
 let recuperoStorage = () => {
     let num = 0
