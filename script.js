@@ -177,29 +177,30 @@ let botonRestar = () => {
 
 //  funciones para la lista de órdenes;
 class Orden {
-    constructor(producto1, producto2, producto3, producto4, producto5, producto6) {
-        this.producto1 = producto1
-        this.producto2 = producto2
-        this.producto3 = producto3
-        this.producto4 = producto4
-        this.producto5 = producto5
-        this.producto6 = producto6
+    constructor(productos, precio, num) {
+        this.productos = productos
+        this.precio = precio
+        this.numero = num
     }
 }
-let enviarCompra = (lista) => {
-    const orden = new Orden(lista[0], lista[1], lista[2], lista[3], lista[4], lista[5])
-    ordenes.push(orden)
-    let cuentaItems = document.getElementsByClassName("nombreProductoCarrito").length;
+
+document.getElementById('botonComprar').onclick = () => {
+if (carritoItems > 0 && carritoItems < 7){
+    let precio = itemsCarrito.map(el => el.precio);
+    precio = precio.reduce((acc, el) => acc + el, 0);
     ordenCount +=1;
-    let item = document.createElement('li');
-    item.innerHTML = '<p>Orden Nº'+ ordenCount +'</p><p class="precio">['+ cuentaItems +' Items]</p>'
-    document.querySelector('#listaOrdenes').append(item)
+    const orden = new Orden(itemsCarrito, precio, ordenCount);
+    ordenes.push(orden);
+    let container = document.createElement('li');
+    container.innerHTML = `<p>Orden Nº${orden.numero}</p><p class="precio">[${orden.productos.length} Items]</p>`
+    document.querySelector('#listaOrdenes').append(container)
     document.querySelector('#listaCarrito').innerHTML = '';
     carritoItems = 0; actualizarItemsCarrito();
     precioTotal = 0; actualizarPrecioTotal();
-    localStorage.setItem('orden'+ordenCount, JSON.stringify(orden));
+    localStorage.setItem(`orden${orden.numero}`, JSON.stringify(orden));
     itemsCarrito = [];
-}
+}};
+
 let recuperoStorage = () => {
     let num = 0
     while (num < 20) {
@@ -210,18 +211,7 @@ let recuperoStorage = () => {
             ordenes.push(ordenStorage);
             ordenCount += 1;
             let item = document.createElement('li');
-            item.innerHTML = '<p>Orden Nº'+ ordenCount +'</p><p class="precio">[ENVIADA]</p>'
+            item.innerHTML = `<p>Orden Nº${ordenStorage.numero}</p><p class="precio">[${ordenStorage.productos.length} Items]</p>`
             document.querySelector('#listaOrdenes').append(item)
         }}
 }; recuperoStorage();
-document.getElementById('botonComprar').onclick = () => {
-    if (carritoItems > 0 && carritoItems < 7){
-        let lista = [];
-        carritoLista = document.querySelectorAll('.nombreProductoCarrito');
-        carritoLista.forEach(item => {
-            let idItem = productos.find(prod => prod.nombre == item.innerText).id;
-            lista.push(idItem)
-        });
-        enviarCompra(lista);
-    }
-};
